@@ -1,20 +1,18 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Table } from "react-bootstrap";
 import { getData } from "./../../ActionsCreators/library";
-
-import Add from "./Add";
 
 const Main = (props) => {
   useEffect(() => {
-    if (!props.data.length) props.getData;
+    if (!props.data.length) props.getData();
   }, []);
 
   return (
-    <div>
-      <Table striped bordered hover>
+    <div className="text-center mt-5">
+      <table className="table">
         <thead>
           <tr>
+            <td>Id</td>
             <td>Title</td>
             <td>Year</td>
             <td>Number</td>
@@ -23,17 +21,23 @@ const Main = (props) => {
         </thead>
         <tbody>
           {props.data.map((item, index) => (
-            <item key={index} data={item} />
+            <tr key={index}>
+              <td>{item._id}</td>
+              <td>{item.bookTitle}</td>
+              <td>{item.years}</td>
+              <td>{item.bookNumber}</td>
+              <td>{item.status}</td>
+            </tr>
           ))}
         </tbody>
-        <Add />
-      </Table>
+      </table>
     </div>
   );
 };
 const mapStateToProps = (state) => {
+  console.log(state.library.data);
   return {
-    data: state.libraries.data,
+    data: state.library.data,
   };
 };
 const mapDispatchToProps = { getData };

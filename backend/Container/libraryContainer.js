@@ -11,9 +11,10 @@ module.exports = {
       .catch((err) => res.json(err));
   },
   getData: (req, res) => {
+    Library.find(req.params.libraryId);
     Library.find({})
       .then((result) => {
-        res.json({ status: "success", data: result });
+        res.json(result);
       })
       .catch((err) => err);
   },
