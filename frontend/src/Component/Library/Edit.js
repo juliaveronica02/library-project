@@ -6,10 +6,10 @@ import { useFormik } from "formik";
 
 const Edit = (props) => {
   const [data, setData] = useState({
-    bookTitle: props.data.bookTitle,
-    years: props.data.years,
-    bookNumber: props.data.bookNumber,
-    status: props.data.status,
+    bookTitle: props.bookTitle,
+    years: props.years,
+    bookNumber: props.bookNumber,
+    status: props.status,
   });
   const handleChange = (event) => {
     let { name, value } = event.currentTarget;
