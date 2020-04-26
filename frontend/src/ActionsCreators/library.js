@@ -26,3 +26,19 @@ export const getData = (data) => {
     });
   };
 };
+export const edit = (data) => {
+  return (dispatch) => {
+    axios.put(`${url}/edit/${data._id}`, data).then((res) => {
+      dispatch({
+        type: "LIBRARY_EDIT_DATA",
+        payload: res.data,
+      });
+    });
+  };
+};
+export const hideEdit = () => {
+  return { type: `LIBRARY_HIDE_EDIT` };
+};
+export const showEdit = (data) => {
+  return { type: `LIBRARY_SHOW_EDIT`, payload: data };
+};
