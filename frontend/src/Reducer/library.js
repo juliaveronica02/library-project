@@ -10,6 +10,8 @@ const Library = (state = initialState, action) => {
     case "LIBRARY_GET_DATA":
       return { ...state, data: action.payload };
 
+      case "LIBRARY_EDIT":
+        return{...state, data:[...state.data, action.payload]}
     default:
       return state;
   }

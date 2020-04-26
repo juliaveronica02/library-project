@@ -1,36 +1,58 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getData } from "./../../ActionsCreators/library";
+import "./style.css";
+import Edit from "./Edit";
 
 const Main = (props) => {
   useEffect(() => {
     if (!props.data.length) props.getData();
   }, []);
+  const [data, setData] = useState({ getData: [] });
+  const [search, setSearch] = useState("");
+  const handleSearch = () => {
+    setData([...data.filter((item) => item.bookTitle === search)]);
+  };
 
   return (
-    <div className="text-center mt-5">
-      <table className="table">
-        <thead>
-          <tr>
-            <td>Id</td>
-            <td>Title</td>
-            <td>Year</td>
-            <td>Number</td>
-            <td>Status</td>
-          </tr>
-        </thead>
-        <tbody>
-          {props.data.map((item, index) => (
-            <tr key={index}>
-              <td>{item._id}</td>
-              <td>{item.bookTitle}</td>
-              <td>{item.years}</td>
-              <td>{item.bookNumber}</td>
-              <td>{item.status}</td>
+    <div>
+      <div className="input-group mb-3 mx-auto" style={{ width: "30%" }}>
+        <input
+          className="form-control mr-sm-2"
+          type="text"
+          name="search"
+          placeholder="Search"
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <button onClick={handleSearch}>Filter</button>
+      </div>
+      <div>
+        <table
+          className="table table-dark table-striped table-hover justify-content-center"
+          style={{ width: "70%" }}
+        >
+          <thead>
+            <tr>
+              <td>Title</td>
+              <td>Year</td>
+              <td>Number</td>
+              <td>Status</td>
+              <td>Button</td>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {props.data.map((item, index) => (
+              <tr key={index}>
+                <td>{item.bookTitle}</td>
+                <td>{item.years}</td>
+                <td>{item.bookNumber}</td>
+                <td>{item.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <Edit />
+      </div>
     </div>
   );
 };
