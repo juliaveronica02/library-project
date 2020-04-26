@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getData } from "./../../ActionsCreators/library";
 import "./style.css";
-import Edit from "./Edit";
+// import Edit from "./Edit";
 
 const Main = (props) => {
   useEffect(() => {
@@ -51,7 +51,7 @@ const Main = (props) => {
             ))}
           </tbody>
         </table>
-        <Edit />
+        {/* <Edit /> */}
       </div>
     </div>
   );
