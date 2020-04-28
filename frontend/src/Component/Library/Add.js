@@ -1,16 +1,35 @@
-import React from "react";
-import { Formik, Form, Field } from "formik";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { add } from "./../../ActionsCreators/library";
+import { Formik, Form, Field } from "formik";
+
+import { add, hideAdd } from "./../../ActionsCreators/library";
 
 const Add = (props) => {
-  //const [data] = useState([]);
+  // const [data, setData] = useState({
+  //   number: 0,
+  //   status: false,
+  //   title: "",
+  //   year: 1990,
+  // });year
+
   const onSubmit = (data) => {
     props.add(data);
   };
 
-  // const onSubmit = (values) => {
-  //   console.log(values);
+  // const handleChange = (event) => {
+  //   let { name, value, type, checked } = event.currentTarget;
+  //   if (type == "checkbox") {
+  //     setData({
+  //       ...data,
+  //       [name]: checked,
+  //     });
+  //     console.log(checked);
+  //   } else {
+  //     setData({
+  //       ...data,
+  //       [name]: value,
+  //     });
+  //   }
   // };
 
   return (
@@ -65,44 +84,15 @@ const Add = (props) => {
   );
 };
 
-const mapDispatchToProps = {
-  add,
+const mapStateToProps = (state) => {
+  return {
+    isShowAdd: state.libraries.isShowAdd,
+  };
 };
 
-export default connect(null, mapDispatchToProps)(Add);
-// function validateBookTitle(value) {
-//     let error;
+const mapDispatchToProps = {
+  add,
+  hideAdd,
+};
 
-//     if (value === "") {
-//       error = "Required";
-//     }
-
-//     return error;
-//   }
-//   function validateYears(value) {
-//     let error;
-
-//     if (value === "") {
-//       error = "Required";
-//     }
-
-//     return error;
-//   }
-//   function validateBookNumber(value) {
-//     let error;
-
-//     if (value === "") {
-//       error = "Required";
-//     }
-
-//     return error;
-//   }
-//   function validateBookStatus(value) {
-//     let error;
-
-//     if (value === "") {
-//       error = "Required";
-//     }
-
-//     return error;
-//   }
+export default connect(mapStateToProps, mapDispatchToProps)(Add);

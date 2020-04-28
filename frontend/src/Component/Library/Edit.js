@@ -1,28 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Button, Modal } from "react-bootstrap";
+
 import { edit, hideEdit } from "./../../ActionsCreators/library";
-import { useFormik } from "formik";
 
 const Edit = (props) => {
   const [data, setData] = useState({
-    bookTitle: props.bookTitle,
-    years: props.years,
-    bookNumber: props.bookNumber,
-    status: props.status,
+    bookTitle: props.data.bookTitle,
+    years: props.data.years,
+    bookNumber: props.data.bookNumber,
+    status: props.data.status,
   });
-  const handleChange = (event) => {
-    let { name, value } = event.currentTarget;
-    setData({
-      ...data,
-      [name]: value,
-    });
-  };
+
   const handleEdit = () => {
     props.edit(data);
   };
+
   const handleClose = () => {
     props.hideEdit();
+  };
+
+  const handleChange = (event) => {
+    let { name, value, type, checked } = event.currentTarget;
+    if (type === "checkbox") {
+      setData({
+        ...data,
+        [name]: checked,
+      });
+      console.log(checked);
+    } else {
+      setData({
+        ...data,
+        [name]: value,
+      });
+    }
   };
 
   useEffect(() => {
@@ -31,7 +42,7 @@ const Edit = (props) => {
   }, [props.data]);
 
   return (
-    <Modal show={props.showEdit} onHide={handleClose}>
+    <Modal show={props.isShowEdit} onHide={handleClose}>
       <Modal.Header closeButton className="bg-warning text-white">
         <Modal.Title>Edit Library</Modal.Title>
       </Modal.Header>
@@ -70,15 +81,19 @@ const Edit = (props) => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="status">Status</label>
-          <input
-            className="form-control"
-            type="text"
-            id="status"
-            name="status"
-            value={data.status}
-            onChange={handleChange}
-          />
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="status"
+              name="status"
+              checked={data.status}
+              onChange={handleChange}
+            />
+            <label className="form-check-label" htmlFor="status">
+              di pinjam
+            </label>
+          </div>
         </div>
       </Modal.Body>
       <Modal.Footer>
@@ -92,10 +107,11 @@ const Edit = (props) => {
     </Modal>
   );
 };
+
 const mapStateToProps = (state) => {
   return {
-    data: state.dataEdit,
-    showEdit: state.showEdit,
+    data: state.libraries.dataEdit,
+    isShowEdit: state.libraries.isShowEdit,
   };
 };
 
@@ -105,6 +121,3 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);
-
-// }
-// export default Edit
