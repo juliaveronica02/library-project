@@ -41,7 +41,7 @@ const Main = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.libraries.data,
+    data: state.library.data,
   };
 };
 const mapDispatchToProps = { getData };

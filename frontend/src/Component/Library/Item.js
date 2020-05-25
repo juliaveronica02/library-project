@@ -23,10 +23,10 @@ const Item = (props) => {
       <td>{props.data.bookNumber}</td>
       <td>{props.data.status ? "di pinjam" : "ada"}</td>
       <td>
-        <button className="btn btn-warning" onClick={handleClickUbah}>
+        <button className="btn btn-outline-warning" onClick={handleClickUbah}>
           ubah
         </button>
-        <button className="btn btn-danger" onClick={handleClick}>
+        <button className="btn btn-outline-danger" onClick={handleClick}>
           hapus
         </button>
       </td>
